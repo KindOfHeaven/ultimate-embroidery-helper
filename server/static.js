@@ -20,7 +20,14 @@ const CONTENT_TYPES = {
 // Отдаёт файл из rootDir или пишет 403/404. Путь жёстко ограничен rootDir:
 // иначе GET /../.. прочитал бы любой файл пользователя.
 function serveStatic (rootDir, urlPath, res) {
-	const relative = path.normalize(decodeURIComponent(urlPath)).replace(/^([/\\]|\.\.)+/, '')
+	let relative
+	try {
+		relative = path.normalize(decodeURIComponent(urlPath)).replace(/^([/\\]|\.\.)+/, '')
+	} catch (e) {
+		// битый %-escape в URL — это не наша ошибка
+		res.statusCode = 400
+		return res.end('Bad request')
+	}
 	const filePath = path.resolve(rootDir, relative)
 
 	if (!filePath.startsWith(path.resolve(rootDir) + path.sep)) {

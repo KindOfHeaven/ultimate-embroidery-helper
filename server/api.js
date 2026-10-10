@@ -31,9 +31,6 @@ function readBody (req) {
 // createApiRouter возвращает обработчик: true — запрос обработан, false — не API.
 function createApiRouter (dataDir) {
 	return async function handleApi (req, res, url) {
-		res.setHeader('Access-Control-Allow-Origin', '*')
-		res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept')
-
 		try {
 			if (req.method === 'GET' && url.pathname === '/api/scheme') {
 				res.setHeader('Content-Type', 'application/json')

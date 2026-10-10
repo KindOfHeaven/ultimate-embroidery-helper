@@ -11,6 +11,8 @@ export async function toggleStitch (panel, block, item) {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ panel, block, item }),
+		// чтобы последняя пачка кликов дожила при закрытии вкладки
+		keepalive: true,
 	})
 	if (!res.ok) throw new Error(`toggle failed: ${res.status}`)
 }

@@ -29,6 +29,12 @@ for (let i = 1; i <= 3; i++) {
 
 const scheme = { scheme: '0Y12-z22', panels }
 
+// Не затирать прогресс пользователя: живём в scheme.json, источники — снапшот.
+const target = path.join(DATA_DIR, 'scheme.json')
+if (fs.existsSync(target) && !process.argv.includes('--force')) {
+	throw new Error('data/scheme.json уже существует — повторный запуск сотрёт отметки. Для перезаписи: node scripts/build-scheme.js --force')
+}
+
 // Self-check: собранный массив обязан совпадать с файлами 1-в-1
 const flat = (i, j, k) => panels[i][(j - 1) * 35 + k]
 
@@ -46,6 +52,11 @@ for (let i = 1; i <= 3; i++) {
 	}
 }
 
-fs.writeFileSync(path.join(DATA_DIR, 'scheme.json'), JSON.stringify(scheme, null, 1))
+fs.writeFileSync(target, JSON.stringify(scheme, null, 1))
+
+// Self-check записанного: прочитанный с диска файл обязан совпасть с памятью
+if (JSON.stringify(JSON.parse(fs.readFileSync(target, 'utf8'))) !== JSON.stringify(scheme)) {
+	throw new Error('записанный scheme.json не совпадает с собранным')
+}
 
 console.log(`migration OK: 315 блоков, 31500 стежков сверены`)

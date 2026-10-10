@@ -6,21 +6,23 @@ import { renderScheme } from './render.js'
 const SAVE_DELAY = 300
 
 // Оптимистичный UI: клик тогглит класс сразу, сохранение на сервер — пачкой.
-// pending хранит ключи клеток, ожидающих записи.
-const pending = new Set()
+// pending хранит число кликов по ключу: серверу нужен toggle только для
+// нечётного числа (чётное = UI вернулся к состоянию сервера).
+const pending = new Map()
 let saveTimer = null
 
 function flushSaves () {
 	clearTimeout(saveTimer)
 	saveTimer = null
 
-	const batch = [...pending]
-	pending.clear()
-	for (const key of batch) {
+	for (const [key, count] of pending) {
+		pending.delete(key)
+		if (count % 2 === 0) continue
+
 		const [panel, block, item] = key.split(':').map(Number)
 		toggleStitch(panel, block, item).catch(err => {
 			// Возвращаем клетку в очередь — запись не дошла
-			pending.add(key)
+			pending.set(key, 1)
 			console.error('save failed, will retry on next click/flush:', err)
 		})
 	}
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		if (!td || !td.querySelector('div').style.backgroundColor) return
 
 		const key = `${td.dataset.panel}:${td.dataset.block}:${td.dataset.item}`
-		pending.add(key)
+		pending.set(key, (pending.get(key) || 0) + 1)
 		td.querySelector('div').classList.toggle('marked')
 		scheduleSave()
 	})
