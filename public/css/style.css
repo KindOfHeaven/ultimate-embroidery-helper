@@ -140,3 +140,9 @@
 div.highlight {
 	background: radial-gradient(circle at 30% 30%, #ff8a8a, #d32f2f) !important;
 }
+
+/* Вышито + подсвечено: тёмно-красный градиент
+   (специфичность выше, чем у .marked и .highlight по отдельности) */
+div.marked.highlight {
+	background: radial-gradient(circle at 30% 30%, #7f1d1d, #450a0a) !important;
+}
