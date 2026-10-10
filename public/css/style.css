@@ -134,3 +134,9 @@
             background: #000 !important;
             color: #fff;
         }
+
+/* Подсветка всех клеток с тем же значком (правый клик);
+   !important — чтобы перекрыть инлайн background-color клетки */
+div.highlight {
+	background: radial-gradient(circle at 30% 30%, #ff8a8a, #d32f2f) !important;
+}

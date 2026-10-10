@@ -5,6 +5,16 @@ import { renderScheme } from './render.js'
 
 const SAVE_DELAY = 300
 
+// Какой значок сейчас подсвечен правым кликом (null — ничего)
+let highlightedIcon = null
+
+function clearHighlight (app) {
+	highlightedIcon = null
+	for (const div of app.querySelectorAll('div.highlight')) {
+		div.classList.remove('highlight')
+	}
+}
+
 // Оптимистичный UI: клик тогглит класс сразу, сохранение на сервер — пачкой.
 // pending хранит число кликов по ключу: серверу нужен toggle только для
 // нечётного числа (чётное = UI вернулся к состоянию сервера).
@@ -56,6 +66,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 		pending.set(key, (pending.get(key) || 0) + 1)
 		td.querySelector('div').classList.toggle('marked')
 		scheduleSave()
+	})
+
+	// Правый клик: подсветить все клетки с тем же значком (повторный — снять)
+	app.addEventListener('contextmenu', e => {
+		e.preventDefault()
+
+		const td = e.target.closest('td[data-item]')
+		const icon = td ? td.dataset.icon : ''
+
+		if (!icon || icon === highlightedIcon) {
+			clearHighlight(app)
+			return
+		}
+
+		clearHighlight(app)
+		highlightedIcon = icon
+		for (const div of app.querySelectorAll(`td[data-icon="${CSS.escape(icon)}"] > div`)) {
+			div.classList.add('highlight')
+		}
 	})
 
 	// Не терять последние клики при закрытии/уходе со страницы

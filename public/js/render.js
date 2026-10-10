@@ -44,6 +44,7 @@ function drawBlock (block, panel, blockIdx) {
 			if (!stitch) continue
 
 			div.style.backgroundColor = stitch.color
+			td.dataset.icon = stitch.icon || ''
 
 			if (stitch.marked) div.classList.add('marked')
 

@@ -525,7 +525,8 @@
     },
     {
      "color": "rgb(212, 204, 199)",
-     "icon": "fa-beer"
+     "icon": "fa-beer",
+     "marked": false
     },
     {
      "color": "rgb(217, 208, 204)",
