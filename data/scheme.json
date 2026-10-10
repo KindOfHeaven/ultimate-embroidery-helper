@@ -8017,7 +8017,8 @@
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(234, 218, 206)",
@@ -8057,31 +8058,38 @@
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(238, 223, 212)",
@@ -8097,7 +8105,8 @@
     },
     {
      "color": "rgb(240, 222, 212)",
-     "icon": "fa-adjust"
+     "icon": "fa-adjust",
+     "marked": false
     },
     {
      "color": "rgb(240, 222, 212)",
@@ -38234,7 +38243,8 @@
     },
     {
      "color": "rgb(222, 213, 206)",
-     "icon": "fa-check"
+     "icon": "fa-check",
+     "marked": false
     },
     {
      "color": "rgb(225, 220, 213)",
